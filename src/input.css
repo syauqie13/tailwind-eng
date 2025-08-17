@@ -1,5 +1,71 @@
 @import "tailwindcss";
 
 .radial-blue {
-  background: radial-gradient(lightyellow, skyblue)
+  background: radial-gradient(lightyellow, skyblue);
+}
+
+/* kamu bisa taruh di file CSS custom */
+.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.open span:nth-child(2) {
+  opacity: 0;
+}
+.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+/* default hamburger */
+/* default hamburger */
+.line {
+  transform-origin: center;
+  @apply block w-8 h-1 bg-white rounded transition-all duration-300;
+}
+
+/* state open (tombol berubah jadi X) */
+#hamburger-button.open .line:nth-child(1) {
+  transform: rotate(45deg) translateY(10px);
+}
+
+#hamburger-button.open .line:nth-child(2) {
+  opacity: 0;
+}
+
+#hamburger-button.open .line:nth-child(3) {
+  transform: rotate(-45deg) translateY(-10px);
+}
+
+@layer utilities {
+  .section-min-height {
+    min-height: calc(100vh - 68px);
+  }
+
+  .hamburger-line {
+    @apply bg-white w-8 h-1 rounded absolute;
+  }
+  .hamburger-line::before {
+    content: "";
+    @apply bg-white w-8 h-1 rounded absolute translate-x-4 translate-y-3;
+  }
+}
+
+/* @custom-variant widescreen (min-aspect-ratio: 3/2);
+@custom-variant tallscreen (max-aspect-ratio: 13/20); */
+
+@theme {
+  --breakpoint-widescreen: (min-aspect-ratio: 3/2);
+  --breakpoint-tallscreen: (max-aspect-ratio: 13/20);
+
+  @keyframes open-menu {
+    0% {
+      transform: scaleY(0);
+    }
+    80% {
+      transform: scaleY(1.2);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
+
+  --animate-open-menu: open-menu 0.5s ease-in-out forwards;
 }
